@@ -1,0 +1,70 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css");
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css");
+
+
+@import url("/assets/load.css");
+
+@font-face {
+    font-family: garden;
+    src: url("/assets/fonts/Gardenpartysans.ttf");
+}
+
+.brand,
+.load-text {
+    font-family: garden;
+}
+
+.dot-drop {
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    right: 0;
+    background: #ff0000;
+    position: absolute;
+}
+
+.dot-drop::after {
+    content: "3";
+}
+
+.dropdown-toggle {
+    padding-right: 2em;
+}
+
+.dropdown-toggle:focus span {
+    display: none;
+}
+
+.card {
+    display: none;
+}
+
+.dropdown-item {
+    cursor: pointer;
+}
+
+.dropdown-item:hover+li div {
+    display: block;
+}
+
+table.table td a.add i {
+    font-size: 24px;
+    margin-right: -1px;
+    position: relative;
+    top: 3px;
+}
+
+table.table .form-control {
+    height: 32px;
+    line-height: 32px;
+    box-shadow: none;
+    border-radius: 2px;
+}
+
+table.table .form-control.error {
+    border-color: #f50000;
+}
+
+table.table td .add {
+    display: none;
+}

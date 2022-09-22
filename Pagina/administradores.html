@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <title>Administradores</title>
+</head>
+
+<body>
+    <main class="d-flex">
+        <div class="d-flex flex-column navbar-dark bg-primary bg-gradient min-vh-100 " style="width: 250px">
+            <a href="inicio.html" class="navbar-brand  fs-2 text-white text-center p-5 brand">Oriental Soft</a>
+            <ul class="navbar-nav p-4 text-center">
+                <li class="nav-item mt-1"><a href="administradores.html"
+                        class="nav-link text-white fw-bold fs-5">Administradores</a>
+                </li>
+                <hr class="border border-light w-75 m-auto">
+                <li class="nav-item mt-5"><a href="inicio.html" class="nav-link text-white">Inicio</a>
+                </li>
+                <li class="nav-item mt-5"><a href="proveedores.html" class="nav-link text-white">Proveedores</a></li>
+                <li class="nav-item mt-5"><a href="productos.html" class="nav-link text-white">Productos</a></li>
+            </ul>
+            <hr class="border border-light w-75 m-auto">
+            <a href="index.html" class="nav-link text-white text-center p-5"><i class="bi bi-box-arrow-left"></i> Cerrar
+                Sesión</a>
+        </div>
+        <div class="container d-flex justify-content-center align-items-center">
+            <div class="table-wrapper  container-fluid">
+                <div class="table-title mb-3">
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <h2><b>Administradores</b></h2>
+                        </div>
+                        <div class="col-sm-12 text-end">
+                            <button type="button" class="btn btn-success add-new"><i class="bi bi-plus"></i>
+                                Añadir</button>
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Cédula</th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Correo</th>
+                            <th>Teléfono</th>
+                            <th>Estado</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1234567890</td>
+                            <td>Gerardo de Jesús</td>
+                            <td>Gutierrez Gutierrez</td>
+                            <td>gd456@gmail.com</td>
+                            <td>3009876545</td>
+                            <td>
+                                <select name="estado">
+                                    <option value="activo">Activo</option>
+                                    <option value="inactivo">Inactivo</option>
+                                </select>
+                            </td>
+                            <td>
+                                <a class="add" title="Add" data-toggle="tooltip"><i
+                                        class="bi bi-plus-square-fill text-primary"></i></a>
+                                <a class="edit" title="Edit" data-toggle="tooltip"><i
+                                        class="bi bi-pencil-fill text-warning"></i></a>
+                                <a class="delete" data-toggle="tooltip"><i class="bi bi-trash-fill text-danger"></i></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+        </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+            var actions = $("table td:last-child").html();
+            // Append table with add row form on add new button click
+            $(".add-new").click(function () {
+                $(this).attr("disabled", "disabled");
+                var index = $("table tbody tr:last-child").index();
+                var row = '<tr>' +
+                    '<td><input type="text" class="form-control" name="name" id="name"></td>' +
+                    '<td><input type="text" class="form-control" name="department" id="department"></td>' +
+                    '<td><input type="text" class="form-control" name="phone" id="phone"></td>' +
+                    '<td><input type="text" class="form-control" name="name" id="name"></td>' +
+                    '<td><input type="text" class="form-control" name="department" id="department"></td>' +
+                    '<td><select name="estado"> <option value="activo">Activo</option><option value="inactivo">Inactivo</option></select></td>' +
+                    '<td>' + actions + '</td>' +
+                    '</tr>';
+                $("table").append(row);
+                $("table tbody tr").eq(index + 1).find(".add, .edit").toggle();
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+            // Add row on add button click
+            $(document).on("click", ".add", function () {
+                var empty = false;
+                var input = $(this).parents("tr").find('input[type="text"]');
+                input.each(function () {
+                    if (!$(this).val()) {
+                        $(this).addClass("error");
+                        empty = true;
+                    } else {
+                        $(this).removeClass("error");
+                    }
+                });
+                $(this).parents("tr").find(".error").first().focus();
+                if (!empty) {
+                    input.each(function () {
+                        $(this).parent("td").html($(this).val());
+                    });
+                    $(this).parents("tr").find(".add, .edit").toggle();
+                    $(".add-new").removeAttr("disabled");
+                }
+            });
+            // Edit row on edit button click
+            $(document).on("click", ".edit", function () {
+                $(this).parents("tr").find("td:not(:last-child)").each(function () {
+                    if ($(this).context.childElementCount != 0) {
+                        $(this).html('<select name="estado"><option value="' + $(this).text() + '">Activo</option><option vvalue="' + $(this).text() + '">Inactivo</option></select>');
+                    } else {
+                        $(this).html('<input type="text" class="form-control" value="' + $(this)
+                            .text() + '">');
+                    }
+                });
+                $(this).parents("tr").find(".add, .edit").toggle();
+                $(".add-new").attr("disabled", "disabled");
+            });
+            // Delete row on delete button click
+            $(document).on("click", ".delete", function () {
+                $(this).parents("tr").remove();
+                $(".add-new").removeAttr("disabled");
+            });
+        });
+    </script>
+</body>
+
+</html>
